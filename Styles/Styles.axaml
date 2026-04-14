@@ -133,7 +133,6 @@
     <Style Selector="DataGrid">
         <Setter Property="Background" Value="#18181B"/>
         <Setter Property="RowBackground" Value="#18181B"/>
-        <Setter Property="AlternatingRowBackground" Value="#1F1F23"/>
         <Setter Property="BorderBrush" Value="#3F3F46"/>
         <Setter Property="GridLinesVisibility" Value="Horizontal"/>
         <Setter Property="HorizontalGridLinesBrush" Value="#3F3F46"/>

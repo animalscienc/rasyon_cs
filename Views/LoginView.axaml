@@ -24,10 +24,8 @@
                 HorizontalAlignment="Center"
                 Background="#18181B"
                 CornerRadius="15"
-                Padding="32">
-            <Border BoxShadow="0 8 24 0 #40000000">
-            </Border>
-            
+                Padding="32"
+                BoxShadow="0 8 24 0 #40000000">
             <StackPanel Spacing="20">
                 <!-- Logo and Title -->
                 <StackPanel HorizontalAlignment="Center" Spacing="8">

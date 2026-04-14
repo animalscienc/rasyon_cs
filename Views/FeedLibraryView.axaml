@@ -73,7 +73,7 @@
                 <!-- Loading Overlay -->
                 <Border Background="#80000000"
                         IsVisible="{Binding IsLoading}"
-                        IsHitVisible="{Binding IsLoading}">
+                        IsHitTestVisible="{Binding IsLoading}">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
                         <TextBlock Text="⏳ Yükleniyor..." FontSize="16" Foreground="#FAFAFA"/>
                     </StackPanel>
@@ -109,18 +109,16 @@
         <Border Grid.Row="0" Grid.RowSpan="3"
                 Background="#80000000"
                 IsVisible="{Binding IsEditorOpen}"
-                IsHitVisible="{Binding IsEditorOpen}">
+                IsHitTestVisible="{Binding IsEditorOpen}">
             <Border Background="#18181B"
                     CornerRadius="12"
                     Padding="24"
                     Width="500"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-                <Border BoxShadow="0 8 32 0 #60000000">
-                </Border>
-                
+                    HorizontalAlignment="Center"
+                    BoxShadow="0 8 32 0 #60000000">
                 <StackPanel Spacing="16">
-                    <TextBlock Text="{Binding IsNewFeed, Converter={x:Static BoolConverters.ToString}, ConverterParameter='Yeni Yem Ekle|Yem Düzenle'}"
+                    <TextBlock Text="Yem Düzenle"
                                Classes="heading"
                                FontSize="20"
                                Foreground="#FAFAFA"/>
