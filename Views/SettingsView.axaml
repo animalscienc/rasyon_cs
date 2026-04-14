@@ -1,0 +1,152 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+             x:Class="ZootekniPro.App.Views.SettingsView">
+    <Grid Background="#0F0F12" Margin="24">
+        <ScrollViewer>
+            <StackPanel Spacing="24" MaxWidth="600">
+                <!-- Header -->
+                <TextBlock Text="Ayarlar"
+                           Classes="heading"
+                           FontSize="28"
+                           Foreground="#FAFAFA"/>
+                
+                <!-- Nutrition Constraints -->
+                <Border Background="#18181B" CornerRadius="12" Padding="24">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Besleme Kısıtları"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="#FAFAFA"/>
+                        
+                        <!-- eNDF Min -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="eNDF Min (% KM):" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Etkili NDF minimum oranı" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding EndfMin}"
+                                          Minimum="0"
+                                          Maximum="100"
+                                          Increment="1"/>
+                        </Grid>
+                        
+                        <!-- RDP/CP Ratio -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="RDP/CP Min (%):" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Rumen degrade protein / ham protein" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding RdpCpMin}"
+                                          Minimum="0"
+                                          Maximum="100"
+                                          Increment="1"/>
+                        </Grid>
+                        
+                        <!-- Ca/P Ratio -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Ca/P Oranı:" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Kalsiyum/Fosfor oranı" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding CaPRatio}"
+                                          Minimum="0"
+                                          Maximum="10"
+                                          Increment="0.1"/>
+                        </Grid>
+                        
+                        <!-- DCAD -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="DCAD (mEq/kg):" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Kuru dönem için" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding Dcad}"
+                                          Minimum="-500"
+                                          Maximum="500"
+                                          Increment="10"/>
+                        </Grid>
+                        
+                        <!-- NPN Max -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="NPN Max (% N):" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Non-protein nitrogen maks" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding NpnMax}"
+                                          Minimum="0"
+                                          Maximum="100"
+                                          Increment="1"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Economic Settings -->
+                <Border Background="#18181B" CornerRadius="12" Padding="24">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Ekonomik Ayarlar"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="#FAFAFA"/>
+                        
+                        <!-- Milk Price -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Süt Fiyatı (TL/kg):" Foreground="#A1A1AA"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding MilkPrice}"
+                                          Minimum="0"
+                                          Maximum="100"
+                                          Increment="0.5"/>
+                        </Grid>
+                        
+                        <!-- Feed Cost Multiplier -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Yem Maliyeti Çarpanı:" Foreground="#A1A1AA"/>
+                                <TextBlock Text="Piyasa dalgalanması" FontSize="12" Foreground="#71717A"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding FeedCostMultiplier}"
+                                          Minimum="0.5"
+                                          Maximum="2"
+                                          Increment="0.1"/>
+                        </Grid>
+                        
+                        <!-- IOFC Target -->
+                        <Grid ColumnDefinitions="*,120" RowDefinitions="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Hedef IOFC (TL/gün):" Foreground="#A1A1AA"/>
+                            </StackPanel>
+                            <NumericUpDown Grid.Column="1"
+                                          Value="{Binding IofcTarget}"
+                                          Minimum="0"
+                                          Maximum="1000"
+                                          Increment="10"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Save Button -->
+                <Button Content="💾 Ayarları Kaydet"
+                        Command="{Binding SaveSettingsCommand}"
+                        Classes="primary"
+                        HorizontalAlignment="Left"
+                        Padding="24,12"/>
+                
+                <!-- Status -->
+                <TextBlock Text="{Binding StatusMessage}"
+                           Foreground="#10B981"
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

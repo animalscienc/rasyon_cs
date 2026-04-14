@@ -33,6 +33,8 @@ public partial class MainWindowViewModel : ViewModelBase
     public DashboardViewModel DashboardViewModel { get; }
     public FeedLibraryViewModel FeedLibraryViewModel { get; }
     public RationCalculatorViewModel RationCalculatorViewModel { get; }
+    public ReportsViewModel ReportsViewModel { get; }
+    public SettingsViewModel SettingsViewModel { get; }
 
     public MainWindowViewModel()
     {
@@ -48,6 +50,8 @@ public partial class MainWindowViewModel : ViewModelBase
         FeedLibraryViewModel = new FeedLibraryViewModel(_dbService);
         RationCalculatorViewModel = new RationCalculatorViewModel(
             _dbService, _optimizationService, _nutritionService, _reportService);
+        ReportsViewModel = new ReportsViewModel(_dbService, _reportService);
+        SettingsViewModel = new SettingsViewModel(_dbService);
 
         // Set login handler
         LoginViewModel.LoginSuccessful += OnLoginSuccessful;
@@ -91,7 +95,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void NavigateToReports()
     {
-        CurrentViewModel = RationCalculatorViewModel;
+        CurrentViewModel = ReportsViewModel;
         CurrentPageTitle = "Raporlar";
         SelectedMenuIndex = 3;
     }
@@ -99,6 +103,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void NavigateToSettings()
     {
+        CurrentViewModel = SettingsViewModel;
         CurrentPageTitle = "Ayarlar";
         SelectedMenuIndex = 4;
     }

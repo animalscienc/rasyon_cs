@@ -2,6 +2,7 @@ using Microsoft.Data.Sqlite;
 using ZootekniPro.App.Models;
 using System.IO;
 using System.Collections.Generic;
+using ZootekniPro.App.ViewModels;
 
 namespace ZootekniPro.App.Services;
 
@@ -89,6 +90,18 @@ public class DatabaseService
                 NEL REAL,
                 FOREIGN KEY (RationId) REFERENCES Rations(Id),
                 FOREIGN KEY (FeedId) REFERENCES Feeds(Id)
+            );
+
+            CREATE TABLE IF NOT EXISTS Settings (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                EndfMin REAL,
+                RdpCpMin REAL,
+                CaPRatio REAL,
+                Dcad REAL,
+                NpnMax REAL,
+                MilkPrice REAL,
+                FeedCostMultiplier REAL,
+                IofcTarget REAL
             );
         ";
         command.ExecuteNonQuery();
@@ -359,5 +372,77 @@ public class DatabaseService
         command.Parameters.AddWithValue("@Price", feed.Price);
         command.Parameters.AddWithValue("@VegetationPeriod", feed.VegetationPeriod);
         command.Parameters.AddWithValue("@Notes", feed.Notes);
+    }
+
+    public List<SavedRation> GetSavedRations()
+    {
+        var rations = new List<SavedRation>();
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT Id, Name, AnimalGroupName, CreatedDate, Version FROM Rations ORDER BY CreatedDate DESC";
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            rations.Add(new SavedRation
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                AnimalGroupName = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                CreatedDate = reader.IsDBNull(3) ? DateTime.Now : DateTime.Parse(reader.GetString(3)),
+                Version = reader.IsDBNull(4) ? 1 : reader.GetInt32(4)
+            });
+        }
+        return rations;
+    }
+
+    public AppSettings? GetSettings()
+    {
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM Settings LIMIT 1";
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            return new AppSettings
+            {
+                EndfMin = reader.IsDBNull(0) ? 20 : reader.GetDouble(0),
+                RdpCpMin = reader.IsDBNull(1) ? 60 : reader.GetDouble(1),
+                CaPRatio = reader.IsDBNull(2) ? 1.8 : reader.GetDouble(2),
+                Dcad = reader.IsDBNull(3) ? 100 : reader.GetDouble(3),
+                NpnMax = reader.IsDBNull(4) ? 30 : reader.GetDouble(4),
+                MilkPrice = reader.IsDBNull(5) ? 15 : reader.GetDouble(5),
+                FeedCostMultiplier = reader.IsDBNull(6) ? 1.0 : reader.GetDouble(6),
+                IofcTarget = reader.IsDBNull(7) ? 50 : reader.GetDouble(7)
+            };
+        }
+        return null;
+    }
+
+    public void SaveSettings(AppSettings settings)
+    {
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = @"
+            INSERT OR REPLACE INTO Settings (EndfMin, RdpCpMin, CaPRatio, Dcad, NpnMax, MilkPrice, FeedCostMultiplier, IofcTarget)
+            VALUES (@EndfMin, @RdpCpMin, @CaPRatio, @Dcad, @NpnMax, @MilkPrice, @FeedCostMultiplier, @IofcTarget)";
+
+        command.Parameters.AddWithValue("@EndfMin", settings.EndfMin);
+        command.Parameters.AddWithValue("@RdpCpMin", settings.RdpCpMin);
+        command.Parameters.AddWithValue("@CaPRatio", settings.CaPRatio);
+        command.Parameters.AddWithValue("@Dcad", settings.Dcad);
+        command.Parameters.AddWithValue("@NpnMax", settings.NpnMax);
+        command.Parameters.AddWithValue("@MilkPrice", settings.MilkPrice);
+        command.Parameters.AddWithValue("@FeedCostMultiplier", settings.FeedCostMultiplier);
+        command.Parameters.AddWithValue("@IofcTarget", settings.IofcTarget);
+
+        command.ExecuteNonQuery();
     }
 }

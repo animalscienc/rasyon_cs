@@ -87,3 +87,12 @@ public class EconomicAnalysis
     public double PriceVolatilityImpact { get; set; } // %10 artış etkisi
     public Dictionary<string, double> CostDistribution { get; set; } = new();
 }
+
+public class SavedRation
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string AnimalGroupName { get; set; } = string.Empty;
+    public DateTime CreatedDate { get; set; }
+    public int Version { get; set; }
+}
