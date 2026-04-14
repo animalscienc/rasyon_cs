@@ -1,18 +1,27 @@
 ﻿using Avalonia;
 using System;
+using System.IO;
 
 namespace ZootekniPro.App;
 
 sealed class Program
 {
-    // Initialization code. Don't use any Avalonia, third-party APIs or any
-    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+    public static int Main(string[] args)
+    {
+        try
+        {
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            var logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "zootekni_error.log");
+            File.WriteAllText(logPath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] ERROR: {ex}\n{ex.StackTrace}");
+            return 1;
+        }
+    }
 
-    // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()

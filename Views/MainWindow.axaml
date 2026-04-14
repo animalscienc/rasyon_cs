@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
         x:Class="ZootekniPro.App.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
         Title="Zootekni Pro - Intelligent Rationing"
         Width="1280"
         Height="800"
