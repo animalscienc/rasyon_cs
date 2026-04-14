@@ -1,0 +1,231 @@
+<UserControl x:Class="ZootekniPro.App.Views.RationCalculatorView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
+             xmlns:vm="using:ZootekniPro.App.ViewModels">
+
+    <Design.DataContext>
+        <vm:RationCalculatorViewModel/>
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="400,*">
+        <!-- Input Panel -->
+        <Border Grid.Column="0"
+                Background="#18181B"
+                CornerRadius="12"
+                Padding="20"
+                Margin="0,0,16,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="20">
+                    <!-- Title -->
+                    <TextBlock Text="Hayvan Grubu Parametreleri"
+                               Classes="subheading"
+                               FontSize="16"
+                               Foreground="#FAFAFA"/>
+
+                    <!-- Animal Group Name -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Grup Adı" Foreground="#A1A1AA" FontSize="12"/>
+                        <TextBox Text="{Binding AnimalGroupName}" Watermark="Örn: Yüksek Verimli Grup A"/>
+                    </StackPanel>
+
+                    <!-- Species -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Hayvan Türü" Foreground="#A1A1AA" FontSize="12"/>
+                        <ComboBox ItemsSource="{Binding SpeciesOptions}"
+                                  SelectedItem="{Binding SelectedSpecies}"
+                                  HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+
+                    <!-- Body Weight -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Canlı Ağırlık (kg)" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding BodyWeight}" Minimum="30" Maximum="800" FormatString="F0"/>
+                    </StackPanel>
+
+                    <!-- Stage -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Dönem" Foreground="#A1A1AA" FontSize="12"/>
+                        <ComboBox ItemsSource="{Binding StageOptions}"
+                                  SelectedItem="{Binding Stage}"
+                                  HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+
+                    <!-- Milk Yield -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Süt Verimi (kg/gün)" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding MilkYield}" Minimum="0" Maximum="60" FormatString="F1"/>
+                    </StackPanel>
+
+                    <!-- Milk Fat -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Süt Yağ (%)" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding MilkFat}" Minimum="0" Maximum="8" FormatString="F1"/>
+                    </StackPanel>
+
+                    <!-- Milk Protein -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Süt Protein (%)" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding MilkProtein}" Minimum="0" Maximum="6" FormatString="F1"/>
+                    </StackPanel>
+
+                    <!-- Lactation Week -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Laktasyon Haftası" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding LactationWeek}" Minimum="1" Maximum="40" FormatString="F0"/>
+                    </StackPanel>
+
+                    <!-- Milk Price -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Süt Fiyatı (TL/kg)" Foreground="#A1A1AA" FontSize="12"/>
+                        <NumericUpDown Value="{Binding MilkPrice}" Minimum="5" Maximum="50" FormatString="F2"/>
+                    </StackPanel>
+
+                    <!-- Calculate Button -->
+                    <Button Command="{Binding CalculateRationCommand}"
+                            Content="🧮 Rasyonu Hesapla"
+                            Classes="success"
+                            Padding="16,12"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,8,0,0"/>
+
+                    <!-- Status -->
+                    <Border Background="#27272A" CornerRadius="8" Padding="12">
+                        <TextBlock Text="{Binding StatusMessage}"
+                                   Foreground="#A1A1AA"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Results Panel -->
+        <Grid Grid.Column="1" RowDefinitions="Auto,*">
+            <!-- Results Header -->
+            <Border Grid.Row="0"
+                    Background="#18181B"
+                    CornerRadius="12"
+                    Padding="20"
+                    Margin="0,0,0,16"
+                    IsVisible="{Binding HasResults}">
+                <Grid ColumnDefinitions="*,*,*,*,*">
+                    <!-- Total DM -->
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="Toplam KM" Foreground="#A1A1AA" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding TotalDM, StringFormat='{}{0:F1} kg'}" FontSize="20" FontWeight="Bold" Foreground="#FAFAFA" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Total Cost -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="Maliyet" Foreground="#A1A1AA" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding TotalCost, StringFormat='{}{0:F2} TL'}" FontSize="20" FontWeight="Bold" Foreground="#F59E0B" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- IOFC -->
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="IOFC" Foreground="#A1A1AA" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Iofc, StringFormat='{}{0:F2} TL'}" FontSize="20" FontWeight="Bold" Foreground="#10B981" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Methane -->
+                    <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                        <TextBlock Text="Metan" Foreground="#A1A1AA" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding MethaneEmission, StringFormat='{}{0:F1} g'}" FontSize="20" FontWeight="Bold" Foreground="#FAFAFA" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Nitrogen -->
+                    <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                        <TextBlock Text="Azot" Foreground="#A1A1AA" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding NitrogenExcretion, StringFormat='{}{0:F1} g'}" FontSize="20" FontWeight="Bold" Foreground="#FAFAFA" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Results Content -->
+            <Grid Grid.Row="1" RowDefinitions="*,Auto" IsVisible="{Binding HasResults}">
+                <!-- Feed Composition Table -->
+                <Border Grid.Row="0"
+                        Background="#18181B"
+                        CornerRadius="12"
+                        Padding="20">
+                    <Grid RowDefinitions="Auto,*">
+                        <TextBlock Grid.Row="0"
+                                   Text="Yem Kompozisyonu"
+                                   Classes="subheading"
+                                   FontSize="14"
+                                   Foreground="#FAFAFA"
+                                   Margin="0,0,0,12"/>
+
+                        <DataGrid Grid.Row="1"
+                                  ItemsSource="{Binding RationFeeds}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserResizeColumns="True"
+                                  GridLinesVisibility="Horizontal"
+                                  Background="Transparent"
+                                  BorderThickness="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Yem Adı" Binding="{Binding FeedName}" Width="*"/>
+                                <DataGridTextColumn Header="Miktar (kg)" Binding="{Binding Amount, StringFormat='{}{0:F2}'}" Width="100"/>
+                                <DataGridTextColumn Header="Maliyet (TL)" Binding="{Binding Cost, StringFormat='{}{0:F2}'}" Width="100"/>
+                                <DataGridTextColumn Header="HP (kg)" Binding="{Binding CP, StringFormat='{}{0:F2}'}" Width="80"/>
+                                <DataGridTextColumn Header="NDF (kg)" Binding="{Binding NDF, StringFormat='{}{0:F2}'}" Width="80"/>
+                                <DataGridTextColumn Header="NEL (Mcal)" Binding="{Binding NEL, StringFormat='{}{0:F2}'}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!-- Validation Messages -->
+                <Border Grid.Row="1"
+                        Background="#18181B"
+                        CornerRadius="12"
+                        Padding="16"
+                        Margin="0,16,0,0"
+                        IsVisible="{Binding ValidationErrors.Count, Converter={x:Static ObjectConverters.IsNotNull}}">
+                    <StackPanel>
+                        <TextBlock Text="Uyarılar ve Öneriler"
+                                   FontWeight="SemiBold"
+                                   Foreground="#F59E0B"
+                                   Margin="0,0,0,8"/>
+                        
+                        <ItemsControl ItemsSource="{Binding ValidationErrors}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"
+                                               Foreground="#A1A1AA"
+                                               FontSize="12"
+                                               Margin="0,2,0,0"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- No Results View -->
+            <Border Grid.Row="0" Grid.RowSpan="2"
+                    Background="#18181B"
+                    CornerRadius="12"
+                    Padding="40"
+                    IsVisible="{Binding !HasResults}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
+                    <TextBlock Text="🧮"
+                               FontSize="64"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Rasyon hesaplamak için parametreleri girin"
+                               FontSize="16"
+                               Foreground="#A1A1AA"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="NRC 2021 standartlarına göre en uygun rasyonu hesaplayalım"
+                               FontSize="12"
+                               Foreground="#71717A"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

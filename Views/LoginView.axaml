@@ -1,0 +1,106 @@
+<UserControl x:Class="ZootekniPro.App.Views.LoginView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             xmlns:vm="using:ZootekniPro.App.ViewModels">
+
+    <Design.DataContext>
+        <vm:LoginViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <!-- Background with gradient effect -->
+        <Border Background="#0F0F12">
+            <Border Background="@LinearGradient(StartPoint=(0,0), EndPoint=(0,1), #18181B, #0F0F12)">
+            </Border>
+        </Border>
+
+        <!-- Login Card -->
+        <Border Classes="card"
+                Width="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="#18181B"
+                CornerRadius="15"
+                Padding="32">
+            <Border BoxShadow="0 8 24 0 #40000000">
+            </Border>
+            
+            <StackPanel Spacing="20">
+                <!-- Logo and Title -->
+                <StackPanel HorizontalAlignment="Center" Spacing="8">
+                    <!-- Placeholder Logo - Cow Icon -->
+                    <Border Width="80" Height="80"
+                            Background="#6366F1"
+                            CornerRadius="40"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="🐄"
+                                   FontSize="40"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                    
+                    <TextBlock Text="ZOOTEKNİ PRO"
+                               Classes="heading"
+                               FontSize="24"
+                               Foreground="#FAFAFA"
+                               HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="Intelligent Rationing System v5.0"
+                               Classes="caption"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Login Form -->
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Kullanıcı Adı"
+                                   Foreground="#A1A1AA"
+                                   FontSize="12"/>
+                        <TextBox Text="{Binding Username}"
+                                 Watermark="admin"
+                                 x:Name="UsernameBox"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Şifre"
+                                   Foreground="#A1A1AA"
+                                   FontSize="12"/>
+                        <TextBox Text="{Binding Password}"
+                                 PasswordChar="*"
+                                 Watermark="zootekni"
+                                 x:Name="PasswordBox"/>
+                    </StackPanel>
+
+                    <!-- Error Message -->
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#EF4444"
+                               FontSize="12"
+                               IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- Login Buttons -->
+                    <StackPanel Spacing="8" Margin="0,8,0,0">
+                        <Button Content="Giriş Yap"
+                                Command="{Binding LoginCommand}"
+                                HorizontalAlignment="Stretch"
+                                Classes="success"/>
+                        
+                        <Button Content="Demo Mod"
+                                Command="{Binding DemoLoginCommand}"
+                                HorizontalAlignment="Stretch"
+                                Classes="secondary"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Footer -->
+                <TextBlock Text="© 2024 Zootekni Pro - Türkiye"
+                           Classes="caption"
+                           HorizontalAlignment="Center"
+                           Margin="0,16,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

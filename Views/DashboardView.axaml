@@ -1,0 +1,153 @@
+<UserControl x:Class="ZootekniPro.App.Views.DashboardView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             xmlns:vm="using:ZootekniPro.App.ViewModels">
+
+    <Design.DataContext>
+        <vm:DashboardViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="24">
+            <!-- Welcome Section -->
+            <Border Background="#18181B" CornerRadius="12" Padding="24">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Hoş Geldiniz!"
+                                   Classes="heading"
+                                   FontSize="28"
+                                   Foreground="#FAFAFA"/>
+                        <TextBlock Text="Zootekni Pro - Akıllı Rasyonlama Sistemine hoş geldiniz. Hayvancılık işletmeniz için en optimal rasyonları hesaplayalım."
+                                   Foreground="#A1A1AA"
+                                   TextWrapping="Wrap"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Stats Cards -->
+            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="Auto">
+                <!-- Total Feeds -->
+                <Border Grid.Column="0" Background="#18181B" CornerRadius="12" Padding="20" Margin="0,0,12,0">
+                    <StackPanel>
+                        <Border Width="48" Height="48" Background="#6366F1" CornerRadius="24" HorizontalAlignment="Left" Margin="0,0,0,12">
+                            <TextBlock Text="🌾" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Toplam Yem" Foreground="#A1A1AA" FontSize="12"/>
+                        <TextBlock Text="{Binding TotalFeeds}" FontSize="28" FontWeight="Bold" Foreground="#FAFAFA"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Total Rations -->
+                <Border Grid.Column="1" Background="#18181B" CornerRadius="12" Padding="20" Margin="6,0,6,0">
+                    <StackPanel>
+                        <Border Width="48" Height="48" Background="#10B981" CornerRadius="24" HorizontalAlignment="Left" Margin="0,0,0,12">
+                            <TextBlock Text="🧮" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Rasyon Sayısı" Foreground="#A1A1AA" FontSize="12"/>
+                        <TextBlock Text="{Binding TotalRations}" FontSize="28" FontWeight="Bold" Foreground="#FAFAFA"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Active Groups -->
+                <Border Grid.Column="2" Background="#18181B" CornerRadius="12" Padding="20" Margin="6,0,6,0">
+                    <StackPanel>
+                        <Border Width="48" Height="48" Background="#F59E0B" CornerRadius="24" HorizontalAlignment="Left" Margin="0,0,0,12">
+                            <TextBlock Text="🐄" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Hayvan Grubu" Foreground="#A1A1AA" FontSize="12"/>
+                        <TextBlock Text="{Binding ActiveAnimalGroups}" FontSize="28" FontWeight="Bold" Foreground="#FAFAFA"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- IOFC -->
+                <Border Grid.Column="3" Background="#18181B" CornerRadius="12" Padding="20" Margin="12,0,0,0">
+                    <StackPanel>
+                        <Border Width="48" Height="48" Background="#EF4444" CornerRadius="24" HorizontalAlignment="Left" Margin="0,0,0,12">
+                            <TextBlock Text="💰" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Günlük IOFC" Foreground="#A1A1AA" FontSize="12"/>
+                        <TextBlock Text="{Binding IofcToday, StringFormat='{}{0:F2} TL'}" FontSize="28" FontWeight="Bold" Foreground="#10B981"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Quick Actions -->
+            <Border Background="#18181B" CornerRadius="12" Padding="24">
+                <StackPanel>
+                    <TextBlock Text="Hızlı İşlemler"
+                               Classes="subheading"
+                               FontSize="16"
+                               Foreground="#FAFAFA"
+                               Margin="0,0,0,16"/>
+                    
+                    <WrapPanel Orientation="Horizontal">
+                        <Button Command="{Binding ImportFeedsCommand}"
+                                Classes="secondary"
+                                Padding="16,12"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="📥" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Text="Yem Verilerini İmport Et" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Classes="success"
+                                Padding="16,12"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="➕" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Text="Yeni Rasyon Oluştur" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Classes="secondary"
+                                Padding="16,12">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="📊" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Text="Rapor Oluştur" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Recent Rations -->
+            <Border Background="#18181B" CornerRadius="12" Padding="24">
+                <StackPanel>
+                    <TextBlock Text="Son Rasyonlar"
+                               Classes="subheading"
+                               FontSize="16"
+                               Foreground="#FAFAFA"
+                               Margin="0,0,0,16"/>
+
+                    <DataGrid ItemsSource="{Binding RecentRations}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              CanUserResizeColumns="True"
+                              GridLinesVisibility="Horizontal"
+                              Background="Transparent"
+                              BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Rasyon Adı" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Hayvan Grubu" Binding="{Binding AnimalGroupName}" Width="*"/>
+                            <DataGridTextColumn Header="Versiyon" Binding="{Binding Version}" Width="80"/>
+                            <DataGridTextColumn Header="Maliyet (TL)" Binding="{Binding TotalCost, StringFormat='{}{0:F2}'}" Width="100"/>
+                            <DataGridTextColumn Header="Tarih" Binding="{Binding CreatedDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+            <!-- Status -->
+            <Border Background="#27272A" CornerRadius="8" Padding="12">
+                <TextBlock Text="{Binding StatusMessage}"
+                           Foreground="#A1A1AA"
+                           FontSize="12"/>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

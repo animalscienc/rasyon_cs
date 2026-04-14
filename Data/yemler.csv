@@ -1,0 +1,48 @@
+Ad;Kategori;Köken;KM;HP;NDF;ADF;NEL;ME;Ca;P;Mg;K;RDP;RUP;NPN;Fiyat;Vejetasyon;Notlar
+Yonca (Kuru);Kaba Yem;Türkiye;88;18;42;32;1.42;2.4;1.5;0.25;0.35;2.0;12;6;0;3.5;Ana;Yüksek kaliteli kaba yem
+Yonca (Silaj);Kaba Yem;Türkiye;35;17;45;35;1.35;2.3;1.4;0.22;0.32;1.9;11;6;0;2.8;Kış;Fermente edilmiş
+Mısır Silajı;Kaba Yem;Türkiye;30;8;45;28;1.55;2.5;0.3;0.22;0.25;1.1;5;3;0;1.5;Sonbahar;Enerji kaynağı
+Buğday Samanı;Kaba Yem;Türkiye;89;4;72;42;0.95;1.6;0.3;0.08;0.12;0.9;3;1;0;0.8;Yaz; düşük kaliteli
+Arpa Samanı;Kaba Yem;Türkiye;88;5;68;38;1.05;1.8;0.35;0.1;0.15;1.0;3.5;1.5;0;0.9;Yaz;Orta kalite
+Çayır Otu;Kaba Yem;Türkiye;85;10;55;32;1.25;2.1;0.45;0.2;0.25;1.5;7;3;0;2.0;Yaz;Doğal ot
+Fiğ;Kaba Yem;Türkiye;85;15;48;30;1.30;2.2;1.2;0.22;0.3;1.8;10;5;0;2.5;İlkbahar;Baklagil
+Mısır (Taney);Enerji Yemi;Türkiye;86;9;12;3;2.05;3.0;0.05;0.28;0.12;0.4;6;3;0;3.2;Sonbahar;Enerji kaynağı
+Arpa (Taney);Enerji Yemi;Türkiye;87;12;18;5;1.95;2.9;0.08;0.35;0.14;0.5;8;4;0;2.8;Yaz;Enerji+protein
+Buğday (Taney);Enerji Yemi;Türkiye;86;13;14;4;2.00;2.95;0.06;0.32;0.13;0.45;9;4;0;2.9;Yaz;Gluten içerir
+Yulaf (Taney);Enerji Yemi;Türkiye;87;11;16;4;1.90;2.85;0.1;0.35;0.15;0.5;7;4;0;2.6;Yaz;Yüksek lif
+Sorgum;Enerji Yemi;Türkiye;85;10;15;4;1.85;2.8;0.06;0.3;0.12;0.35;7;3;0;2.4;Sonbahar;Mısır alternatifi
+Soya Fasulyesi (Ext);Protein Yemi;ABD;90;48;15;9;2.15;3.2;0.35;0.65;0.28;1.8;32;16;0;8.5;Yıl boyu;Yüksek protein
+Ayçiçeği (Ext);Protein Yemi;Türkiye;90;40;25;18;1.70;2.6;0.4;0.6;0.45;1.2;28;12;0;5.5;Yıl boyu;Lif kaynağı
+Pamuk Tohumu (Ext);Protein Yemi;Türkiye;90;38;28;22;1.80;2.7;0.2;0.6;0.35;1.1;26;12;0;5.0;Yıl boyu;Lif içerir
+Kolza (Ext);Protein Yemi;ABD;90;38;20;14;1.95;2.9;0.6;0.7;0.3;0.7;25;13;0;6.0;Yıl boyu;Yağlı tohum
+Hububat Rüşeymi;Protein Yemi;ABD;90;25;35;18;1.60;2.4;0.5;0.8;0.4;1.5;18;7;0;4.5;Yıl boyu;Yağ+protein
+Balık Unu;Protein Yemi;Peru;90;65;0;0;2.20;3.3;5.0;2.5;0.4;0.8;45;20;0;12.0;Yıl boyu;Hayvansal protein
+Et Kemik Unu;Protein Yemi;Yerli;90;50;0;0;1.80;2.7;10.0;4.5;0.8;0.7;35;15;0;8.0;Yıl boyu;Mineral kaynağı
+Süt Tozu;Protein Yemi;Yerli;95;32;0;0;2.10;3.15;1.2;0.9;0.1;1.2;22;10;0;10.0;Yıl boyu;Sığır için
+Tritikale;Enerji Yemi;Türkiye;86;14;16;5;1.92;2.88;0.06;0.35;0.14;0.48;9;5;0;2.7;Yaz;Buğday+çavdar melezi
+Mısır Gluteni;Protein Yemi;ABD;90;60;10;4;2.05;3.05;0.1;0.8;0.4;0.3;42;18;0;6.5;Yıl boyu;Biyoteknoloji yan ürünü
+Buğday Kepeği;Enerji Yemi;Türkiye;87;15;35;12;1.65;2.5;0.1;0.6;0.4;0.6;10;5;0;2.2;Yıl boyu;Lif kaynağı
+Arpa Kepeği;Enerji Yemi;Türkiye;87;14;38;15;1.55;2.4;0.12;0.55;0.4;0.65;9;5;0;2.0;Yıl boyu;Düşük enerji
+Pirinç Kepeği;Enerji Yemi;Türkiye;87;13;30;20;1.70;2.55;0.15;1.2;0.8;0.9;9;4;0;2.3;Yıl boyu;Yağlı
+Şeker Pancarı Posası;Kaba Yem;Türkiye;90;9;50;28;1.45;2.2;0.7;0.1;0.3;1.0;6;3;0;1.8;Yıl boyu;Yüksek şeker
+Patates Posası;Kaba Yem;Türkiye;90;7;35;20;1.55;2.35;0.15;0.25;0.25;2.5;5;2;0;1.2;Yıl boyu;Nişasta kaynağı
+Elma Posası;Kaba Yem;Türkiye;90;5;40;25;1.30;2.0;0.15;0.1;0.2;0.8;3;2;0;1.0;Sonbahar;Meyve yan ürünü
+Melas (Şeker);Enerji Yemi;Türkiye;75;3;0;0;1.80;2.7;0.3;0.05;0.4;3.5;2;1;0;2.5;Yıl boyu;Yüksek şeker
+Üre (NPN);Katkı;Yerli;100;281;0;0;0;0;0;0;0;0;0;0;281;4.0;Yıl boyu;NPN kaynağı
+Amonyum Sülfat (NPN);Katkı;Yerli;100;21;0;0;0;0;0;0;0;0;0;0;21;2.0;Yıl boyu;NPN kaynağı
+Kireçtaşı;Mineral;Yerli;100;0;0;0;0;0;38;0.02;0;0;0;0;0;0.5;Yıl boyu;Ca kaynağı
+DCP (Dikalsiyum Fosfat);Mineral;Yerli;100;0;0;0;0;0;24;18;0;0;0;0;0;5.0;Yıl boyu;Ca+P kaynağı
+Mono Kalsiyum Fosfat;Mineral;Yerli;100;0;0;0;0;0;17;22;0;0;0;0;0;4.5;Yıl boyu;P kaynağı
+Magnezyum Oksit;Mineral;Yerli;100;0;0;0;0;0;0;0;55;0;0;0;0;2.0;Yıl boyu;Mg kaynağı
+Tuz (NaCl);Mineral;Yerli;100;0;0;0;0;0;39;0;0;0;60;0;0;0.8;Yıl boyu;Na+Cl kaynağı
+Kükürt;Mineral;Yerli;100;0;0;0;0;0;0;0;0;0;0;0;0;1.5;Yıl boyu;S kaynağı
+Vitamin Premiks;Katkı;ABD;95;0;0;0;0;0;0;0;0;0;0;0;0;25.0;Yıl boyu;Vitamin A,D,E,K
+Mineral Premiks;Mineral;ABD;95;0;0;0;0;0;10;5;3;2;5;0;0;15.0;Yıl boyu;Ca,P,Mg,Cu,Zn,Se
+Sodyum Bikarbonat;Katkı;Yerli;100;0;0;0;0;0;27;0;0;0;20;0;0;2.5;Yıl boyu;Rumende缓冲区
+Kalsiyum Propiyonat;Katkı;Yerli;100;0;0;0;0;0;22;0;0;0;0;0;0;8.0;Yıl boyu;Küflenme önleyici
+Mayalar (Selekton);Katkı;ABD;95;40;0;0;0;0;0;0;0;0;0;0;0;15.0;Yıl boyu;Probiyotik
+Aromatik Otlar;Katkı;Türkiye;85;8;20;10;1.2;1.8;0.5;0.2;0.15;0.5;5;3;0;5.0;Yaz;Doğal aroma
+Probiyotik;Katkı;ABD;95;35;0;0;0;0;0;0;0;0;0;0;0;20.0;Yıl boyu;Flora dengeleyici
+Enzim (Fitaz);Katkı;ABD;95;0;0;0;0;0;0;0;0;0;0;0;0;18.0;Yıl boyu;Fitat fosfor emilimi
+AntiOksidan;Katkı;ABD;95;0;0;0;0;0;0;0;0;0;0;0;0;12.0;Yıl boyu;Raf ömrü uzatıcı
+TMR Katkısı;Katkı;Yerli;90;5;15;8;1.4;2.1;0.2;0.15;0.1;0.3;3;2;0;3.0;Yıl boyu;Karıştırıcı

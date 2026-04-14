@@ -1,0 +1,203 @@
+<UserControl x:Class="ZootekniPro.App.Views.FeedLibraryView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             xmlns:vm="using:ZootekniPro.App.ViewModels">
+
+    <Design.DataContext>
+        <vm:FeedLibraryViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Search and Filter Bar -->
+        <Border Grid.Row="0" Background="#18181B" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <!-- Search Box -->
+                <TextBox Grid.Column="0"
+                         Text="{Binding SearchText}"
+                         Watermark="Yem adı veya köken ara..."
+                         Margin="0,0,12,0"/>
+
+                <!-- Category Filter -->
+                <ComboBox Grid.Column="1"
+                          Width="180"
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          PlaceholderText="Kategori seç..."
+                          Margin="0,0,12,0"/>
+
+                <!-- Search Button -->
+                <Button Grid.Column="2"
+                        Command="{Binding SearchFeedsCommand}"
+                        Content="🔍 Ara"
+                        Classes="secondary"
+                        Padding="16,8"
+                        Margin="0,0,12,0"/>
+
+                <!-- Add New Button -->
+                <Button Grid.Column="3"
+                        Command="{Binding NewFeedCommand}"
+                        Content="➕ Yeni Yem"
+                        Classes="success"
+                        Padding="16,8"/>
+            </Grid>
+        </Border>
+
+        <!-- Feed DataGrid -->
+        <Border Grid.Row="1" Background="#18181B" CornerRadius="12" Padding="0">
+            <Grid>
+                <DataGrid ItemsSource="{Binding Feeds}"
+                          SelectedItem="{Binding SelectedFeed}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserResizeColumns="True"
+                          GridLinesVisibility="Horizontal"
+                          Background="Transparent"
+                          BorderThickness="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Yem Adı" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Kategori" Binding="{Binding Category}" Width="120"/>
+                        <DataGridTextColumn Header="Köken" Binding="{Binding Origin}" Width="100"/>
+                        <DataGridTextColumn Header="KM %" Binding="{Binding DM, StringFormat='{}{0:F1}'}" Width="70"/>
+                        <DataGridTextColumn Header="HP %" Binding="{Binding CP, StringFormat='{}{0:F1}'}" Width="70"/>
+                        <DataGridTextColumn Header="NDF %" Binding="{Binding NDF, StringFormat='{}{0:F1}'}" Width="70"/>
+                        <DataGridTextColumn Header="NEL Mcal" Binding="{Binding NEL, StringFormat='{}{0:F2}'}" Width="80"/>
+                        <DataGridTextColumn Header="Fiyat (TL)" Binding="{Binding Price, StringFormat='{}{0:F2}'}" Width="90"/>
+                        <DataGridTextColumn Header="Vejetasyon" Binding="{Binding VegetationPeriod}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Loading Overlay -->
+                <Border Background="#80000000"
+                        IsVisible="{Binding IsLoading}"
+                        IsHitVisible="{Binding IsLoading}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                        <TextBlock Text="⏳ Yükleniyor..." FontSize="16" Foreground="#FAFAFA"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Bottom Action Bar -->
+        <Border Grid.Row="2" Background="#18181B" CornerRadius="12" Padding="16" Margin="0,16,0,0">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusMessage}"
+                           Foreground="#A1A1AA"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Command="{Binding EditFeedCommand}"
+                            Content="✏️ Düzenle"
+                            Classes="secondary"
+                            Padding="12,8"
+                            IsEnabled="{Binding SelectedFeed, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    
+                    <Button Command="{Binding DeleteFeedCommand}"
+                            Content="🗑️ Sil"
+                            Classes="danger"
+                            Padding="12,8"
+                            IsEnabled="{Binding SelectedFeed, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Editor Dialog Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="3"
+                Background="#80000000"
+                IsVisible="{Binding IsEditorOpen}"
+                IsHitVisible="{Binding IsEditorOpen}">
+            <Border Background="#18181B"
+                    CornerRadius="12"
+                    Padding="24"
+                    Width="500"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Border BoxShadow="0 8 32 0 #60000000">
+                </Border>
+                
+                <StackPanel Spacing="16">
+                    <TextBlock Text="{Binding IsNewFeed, Converter={x:Static BoolConverters.ToString}, ConverterParameter='Yeni Yem Ekle|Yem Düzenle'}"
+                               Classes="heading"
+                               FontSize="20"
+                               Foreground="#FAFAFA"/>
+
+                    <!-- Form Fields -->
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                        <!-- Name -->
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,8">
+                            <TextBlock Text="Yem Adı" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding EditingFeed.Name}"/>
+                        </StackPanel>
+
+                        <!-- Category and Origin -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,8">
+                            <TextBlock Text="Kategori" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding EditingFeed.Category}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                            <TextBlock Text="Köken" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding EditingFeed.Origin}"/>
+                        </StackPanel>
+
+                        <!-- DM and CP -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,8">
+                            <TextBlock Text="Kuru Madde (%)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.DM}" Minimum="0" Maximum="100" FormatString="F1"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                            <TextBlock Text="Ham Protein (%)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.CP}" Minimum="0" Maximum="100" FormatString="F1"/>
+                        </StackPanel>
+
+                        <!-- NDF and NEL -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,8">
+                            <TextBlock Text="NDF (%)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.NDF}" Minimum="0" Maximum="100" FormatString="F1"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                            <TextBlock Text="NEL (Mcal/kg)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.NEL}" Minimum="0" Maximum="5" FormatString="F2"/>
+                        </StackPanel>
+
+                        <!-- Ca and P -->
+                        <StackPanel Grid.Column="0" Margin="0,0,8,8">
+                            <TextBlock Text="Kalsiyum (%)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.Ca}" Minimum="0" Maximum="10" FormatString="F2"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1" Margin="8,0,0,8">
+                            <TextBlock Text="Fosfor (%)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.P}" Minimum="0" Maximum="10" FormatString="F2"/>
+                        </StackPanel>
+
+                        <!-- Price -->
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,8">
+                            <TextBlock Text="Fiyat (TL/kg KM)" Foreground="#A1A1AA" FontSize="12" Margin="0,0,0,4"/>
+                            <NumericUpDown Value="{Binding EditingFeed.Price}" Minimum="0" Maximum="100" FormatString="F2"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button Command="{Binding CancelEditCommand}"
+                                Content="İptal"
+                                Classes="secondary"
+                                Padding="16,8"/>
+                        
+                        <Button Command="{Binding SaveFeedCommand}"
+                                Content="Kaydet"
+                                Classes="success"
+                                Padding="16,8"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>
